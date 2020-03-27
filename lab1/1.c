@@ -3,26 +3,22 @@
 
 // Analogies with OO programming are marked next to particular lines of code, as comments starting with ~
 
-// Preparing the animals
 typedef char const *(*PTRFUN)();
 
-typedef struct AnimalVTable {  // ~ virtual table of functions that classes use for dynamic polymorphism (c++, java)
-    PTRFUN greet;
-    PTRFUN menu;
-    PTRFUN anyNumberOfAdditionalVirtualFunctions;
-} AnimalVTable;
+
+// Preparing the animals
+
 typedef struct Animal {  // ~ class
-    // TODO might be better to use PTRFUN**vtable instead of a new struct. That would enable Dog and Cat to add new functions
-    AnimalVTable *vtable;  // ~ (usually hidden) pointer the virtual table of functions (c++)
+    PTRFUN *vtable;  // ~ pointer to virtual table
     char const *name;  // ~ a member variable
 } Animal;
 
 void animalPrintGreeting(Animal *a) {  // ~ static method of class Animal, usually implemented through early binding (c++)
-    printf("%s pozdravlja: %s\n", a->name, a->vtable->greet());
+    printf("%s pozdravlja: %s\n", a->name, (a->vtable[0])());
 }
 
 void animalPrintMenu(Animal *a) {  // ~ static method of class Animal
-    printf("%s voli: %s\n", a->name, a->vtable->menu());
+    printf("%s voli: %s\n", a->name, a->vtable[1]());
 }
 
 // Here comes the dogy
@@ -34,7 +30,7 @@ char const *dogMenu(void) {  // ~ derived method
     return "kuhanu govedinu";
 }
 
-AnimalVTable dogsVTable = {.menu = dogMenu, .greet = dogGreet};  // ~ virtual table for derived class
+void* dogsVTable[2] = {dogGreet, dogMenu};  // ~ virtual table for derived class
 
 void constructDog(Animal *a, char const *name) {  // ~ class constructor for class Dog, binding 
     a->vtable = &dogsVTable;
@@ -66,7 +62,7 @@ char const *catMenu(void) {  // ~ derived mehod
     return "konzerviranu tunjevinu";
 }
 
-AnimalVTable catsVTable = {.menu = catMenu, .greet = catGreet};  // ~ virtual table for class Cat
+void* catsVTable[2] = {catGreet, catMenu};  // ~ virtual table for class Cat
 
 void constructCat(Animal *a, char const *name) {  // ~ constructor for class Cat, binding
     a->vtable = &catsVTable;
