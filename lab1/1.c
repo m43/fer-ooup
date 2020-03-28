@@ -3,22 +3,26 @@
 
 // Analogies with OO programming are marked next to particular lines of code, as comments starting with ~
 
-typedef char const *(*PTRFUN)();
+//typedef char const *(*PTRFUN)();
 
 
 // Preparing the animals
 
 typedef struct Animal {  // ~ class
-    PTRFUN *vtable;  // ~ pointer to virtual table
+    void **vtable;  // ~ pointer to virtual table
     char const *name;  // ~ a member variable
 } Animal;
 
-void animalPrintGreeting(Animal *a) {  // ~ static method of class Animal, usually implemented through early binding (c++)
-    printf("%s pozdravlja: %s\n", a->name, (a->vtable[0])());
+void animalPrintGreeting(Animal *a) {  // ~ static method of class Animal, usually impl. through early binding (c++)
+    printf("%s pozdravlja: %s\n", a->name, ((const char *(*)()) a->vtable[0])());
+    // Note that:
+    // "((const char *(*)()) a->vTable[0])()"
+    // Could also have been written as:
+    // "((PTRFUN) a->vTable[0])()"
 }
 
 void animalPrintMenu(Animal *a) {  // ~ static method of class Animal
-    printf("%s voli: %s\n", a->name, a->vtable[1]());
+    printf("%s voli: %s\n", a->name, ((const char *(*)()) a->vtable[1])());
 }
 
 // Here comes the dogy
@@ -30,10 +34,10 @@ char const *dogMenu(void) {  // ~ derived method
     return "kuhanu govedinu";
 }
 
-void* dogsVTable[2] = {dogGreet, dogMenu};  // ~ virtual table for derived class
+void *dogsVTable[2] = {dogGreet, dogMenu};  // ~ virtual table for derived class
 
 void constructDog(Animal *a, char const *name) {  // ~ class constructor for class Dog, binding 
-    a->vtable = &dogsVTable;
+    a->vtable = dogsVTable; // TODO what is the difference between &dogsVTable and dogsVTable? Strangely, both work
     a->name = name; // TODO will this now point to the same location as given "name"? Could this make problems if name was on stack?
 }
 
@@ -51,8 +55,6 @@ Animal *createDogs(int n, char const *names[]) {  // ~ could be a static mehthod
     return dogs;
 }
 
-// podatkovnim članovima objekta, metodama, virtualnim metodama, konstruktorima, te virtualnim tablicama?
-
 // Is "Ofelija" really a cat?
 char const *catGreet(void) {  // ~ derived mehod
     return "mijau!";
@@ -62,10 +64,10 @@ char const *catMenu(void) {  // ~ derived mehod
     return "konzerviranu tunjevinu";
 }
 
-void* catsVTable[2] = {catGreet, catMenu};  // ~ virtual table for class Cat
+void *catsVTable[2] = {catGreet, catMenu};  // ~ virtual table for class Cat
 
 void constructCat(Animal *a, char const *name) {  // ~ constructor for class Cat, binding
-    a->vtable = &catsVTable;
+    a->vtable = catsVTable;
     a->name = name;
 }
 
@@ -136,7 +138,7 @@ void testNDogs(void) {  // ~ demonstration program or a very simple unit test wi
 
 // After all, lets run it
 int main(void) {  // ~ program main entry point
-    
+
     testAnimals();
     printf("\n");
 
@@ -144,6 +146,6 @@ int main(void) {  // ~ program main entry point
     printf("\n");
 
     testNDogs();
-    
+
     return 0;
 }
