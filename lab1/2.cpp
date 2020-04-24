@@ -1,3 +1,7 @@
+//
+// Created by m43 on 22. 04. 2020..
+//
+
 #include <stdio.h>
 
 class Unary_Function {
@@ -94,6 +98,7 @@ int main() {
     Linear
         [0] value_at
         [1] negative_value_at
+        [2] dummy (a member function that I've added for test purposes)
 
  2. Solution is in the file "2.c"
 
