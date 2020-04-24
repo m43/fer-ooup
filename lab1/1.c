@@ -35,10 +35,30 @@ char const *dogMenu(void) {  // ~ derived method
 }
 
 void *dogsVTable[2] = {dogGreet, dogMenu};  // ~ virtual table for derived class
+// void **doggies = dogsVTable;
 
-void constructDog(Animal *a, char const *name) {  // ~ class constructor for class Dog, binding 
-    a->vtable = dogsVTable; // TODO what is the difference between &dogsVTable and dogsVTable? Strangely, both work
-    a->name = name; // TODO will this now point to the same location as given "name"? Could this make problems if name was on stack?
+void constructDog(Animal *a, char const *name) {  // ~ class constructor for class Dog, binding
+    /* What is the difference between &dogsVTable and dogsVTable? Both work. A: They both work because dogsVTable is
+     * defined as an array, and for arrays the following is true &array=array. If that variable was not an array,
+     * just like doggies is not, then one must be more careful with using &doggies and doggies, because &doggies is now
+     * the address of the pointer not of the array it's pointing to.
+     * In other words, for doggies this would be correct:
+     *      a->vtable = doggies;
+     * .. while this would not work:
+     *      a-vtable = *doggies;
+     *
+     * Debug that proves this:
+     *      printf("\tDoggies:\n");
+     *      printf("%d\n", (int) doggies);
+     *      printf("%d\n", (int) &doggies);
+     *      printf("\tdogsVTable\n");
+     *      printf("%d\n", (int) dogsVTable);
+     *      printf("%d\n", (int) &dogsVTable);
+     */
+    a->vtable = dogsVTable;
+
+    // TODO will this now point to the same location as given "name"? Could this make problems if name was on stack?
+    a->name = name;
 }
 
 Animal *createDog(char const *name) {  // ~ class constructor for class Dog, memory allocation
@@ -47,7 +67,7 @@ Animal *createDog(char const *name) {  // ~ class constructor for class Dog, mem
     return a;
 }
 
-Animal *createDogs(int n, char const *names[]) {  // ~ could be a static mehthod of class Dog
+Animal *createDogs(int n, char const *names[]) {  // ~ could be a static method of class Dog
     Animal *dogs = malloc(sizeof(Animal) * n);
     for (int i = 0; i < n; i++) {
         constructDog(&dogs[i], names[i]);
@@ -113,7 +133,12 @@ void testAnimalsStack(void) {
     Animal a3 = {};
 
     constructDog(&a1, "Hamlet");
-    constructCat(&a2, "Ofelija");
+    {
+        char *ofelija = "Ofelija";  // This works
+        // TODO check this
+        // char *ofelija = {'O', 'f', 'e', 'l', 'i', 'j', 'a'};  //This way ofelija is on stack -> 139 (signal 11: SIGSEGV)
+        constructCat(&a2, ofelija);
+    }
     constructDog(&a3, "Polonije");
 
     animalPrintGreeting(&a1);

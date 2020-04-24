@@ -13,3 +13,8 @@ CTestTestfile.cmake
 _deps
 cmake-build-debug
 Libraries
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
