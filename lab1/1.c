@@ -136,7 +136,7 @@ void testAnimalsStack(void) {
     {
         char *ofelija = "Ofelija";  // This works
         // TODO check this
-        // char *ofelija = {'O', 'f', 'e', 'l', 'i', 'j', 'a'};  //This way ofelija is on stack -> 139 (signal 11: SIGSEGV)
+        // char *ofelija = {'O', 'f', 'e', 'l', 'i', 'j', 'a', '\0'};  //This way ofelija is on stack -> 139 (signal 11: SIGSEGV)
         constructCat(&a2, ofelija);
     }
     constructDog(&a3, "Polonije");
