@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra ") # -Werror
 #add_executable(lab1-ex06 lab1/6.cpp)
 
 ## LAB2
-add_executable(lab1-ex00-procedural lab2/0_procedural.cpp)
-add_executable(lab1-ex00-oop lab2/0_oop.cpp)
-add_executable(lab1-ex01 lab2/1.c)
-add_executable(lab1-ex02 lab2/2.cpp)
+add_executable(lab2-ex00-procedural lab2/ex0/procedural.cpp)
+add_executable(lab2-ex00-oop lab2/ex0/oop.cpp)
+add_executable(lab2-ex01 lab2/ex1/mymax.c)
+add_executable(lab2-ex02 lab2/ex2/mymax.cpp)

@@ -103,4 +103,21 @@ int main() {
         3.  The third thing 'Derived::Derived' does is make a static call to 'Base::metoda()'. In this function,
             'virtualnaMetoda' gets called, and that call is dynamically bound to call 'Derived::virtualnaMetoda()'.
 
+    N.B. Java, C# and Python are for example different:
+        - https://stackoverflow.com/questions/10404879/polymorphism-and-constructors
+        - https://stackoverflow.com/questions/119506/virtual-member-call-in-a-constructor
+        - https://stackoverflow.com/questions/3091833/calling-member-functions-from-a-constructor
+        - Python does not call the base constructor automatically as in Java, C# and C++, one needs to do it
+          explicitly: https://stackoverflow.com/questions/60015319/is-it-necessary-to-call-super-init-explicitly-in-python
+          As self is passed all around, the virtual method called will be the one associated with the concrete object.
+          ./6_playground.py has a demonstration program
+
+    "What is the basic difference when writing code that accesses data members or class member functions
+    from inside class member functions in Java and Python programming languages?"
+
+    Well the obvious difference is self vs this. For class function members it is important to note
+    that self.someVirtualFunction() would look for the function in the self.__dict__ member variable,
+    whereas in Java someVirtualFunction() would look for the function in the vtable of the object.
+
+
  * * * * * * * * * * * * * * * *  * * * * * * * * * * * * * * * * * * * */

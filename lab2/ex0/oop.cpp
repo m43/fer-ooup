@@ -105,6 +105,7 @@ int main() {
  *  Using the OOP principles of C++ i is easy to avoid the problems faced in the first (procedural)
  *  solution to the same problem. It's easy to add new classes and polymorphic functionality, with
  *  no switch cases that are really hard to change because they cause an domino-effect when tried
- *  to change. This implementation is not fragile. This implementation does not require any changes
- *  in base function when an new derived class is implemented (open/closed principle).
+ *  to change. Therefore, it is not rigid. This implementation is also not fragile, as one does not
+ *  need to remember to update the switch statement when a new class is added. It does not require
+ *  any changes in base function when a new derived class is implemented (open/closed principle).
  */

@@ -180,8 +180,6 @@ main:
                 ;           alignment of stack pointer outside of prolog. Source (page 526., paragraph 3):
                 ;           https://books.google.hr/books?id=plInCgAAQBAJ&pg=PA526&lpg=PA526&dq=x86+assembly+why+function+allocates+16+bytes+that+are+not+used&source=bl&ots=-MLt08Dq5w&sig=ACfU3U0342GcM7FswbX2ceo5eAvcBofuvg&hl=en&sa=X&ved=2ahUKEwiPnOze1MToAhWR6aYKHRQsAHUQ6AEwAHoECAkQAQ#v=onepage&q=x86%20assembly%20why%20function%20allocates%2016%20bytes%20that%20are%20not%20used&f=false
                 ;           Wikipedia, but no citations (accessed 31.3.2020.) :( https://en.wikipedia.org/wiki/X86_calling_conventions
-                ; What is the purpose of the remaining 16B?
-
 	; stack canary protection
 	;	https://stackoverflow.com/questions/42118030/how-do-canary-words-allow-gcc-to-detect-buffer-overflows
 	;	https://stackoverflow.com/questions/42118030/how-do-canary-words-allow-gcc-to-detect-buffer-overflows
@@ -213,7 +211,7 @@ main:
 	mov	rax, QWORD PTR [rax]	; load the vtable pointer provided it is saved at the start of the object	
 	mov	rdx, QWORD PTR [rax]	; load the concrete function from the vtable. set is stored at the first slot in the vtable.
 								; for calling get, one should take the pointer at location [rax+8]
-	mov	rax, QWORD PTR -32[rbp]	; put the object locatio into rax
+	mov	rax, QWORD PTR -32[rbp]	; put the object location into rax
 	mov	esi, 42		; put the function parameter into esi
 	mov	rdi, rax	; put the object address into rdi
 	call	rdx		; call CoolClass::set(int i)
