@@ -22,8 +22,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra") # -Werror
 #add_executable(lab2-ex01 lab2/ex1/mymax.c)
 #add_executable(lab2-ex02 lab2/ex2/mymax.cpp)
 
-## LAB3 // TODO create .sh scripts
+## LAB3
 ## 1.1
 # ./run.sh
-add_executable(lab3-ex01 lab3/ex1/main.c lab3/ex1/myfactory.c)
+add_executable(lab3-ex01-1 lab3/ex1-1/main.c lab3/ex1-1/myfactory.c)
 

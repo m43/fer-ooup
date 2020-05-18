@@ -40,7 +40,7 @@ Tiger *create(char const *name) {
     return t;
 }
 
-Tiger **createMultiple(int n, char const *names[]) { // TODO try with **names to check understanding/prediction
+Tiger **createMultiple(int n, char const **names) {
     Tiger **tigers = malloc(n * sizeof(Tiger));
     for (int i = 0; i < n; i++) {
         construct(tigers[i], names[i]);
