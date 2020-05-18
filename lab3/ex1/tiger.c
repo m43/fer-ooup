@@ -6,7 +6,7 @@
 
 typedef char const *(*PTRFUN)();
 
-typedef struct {
+typedef struct Animal {
     PTRFUN *vTable;
     const char *name;
 } Tiger;
@@ -24,6 +24,10 @@ const char *menu() {
 }
 
 PTRFUN tigerVTable[] = {name, greet, menu};
+
+int size() {
+    return sizeof(Tiger);
+}
 
 void construct(Tiger *tiger, char const *name) {
     tiger->vTable = tigerVTable;

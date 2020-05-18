@@ -6,24 +6,30 @@
 
 #include <stdio.h>
 #include <dlfcn.h>
+#include <stdlib.h>
 
 void *myfactory(const char *libname, const char *ctorarg) {
     void *handle = dlopen(libname, RTLD_LAZY);
     char *error;
-    void *(*create)(const char *);
+    void *(*construct)(void *, const char *);
+    int (*sizeOfAnimal)();
 
     if (!handle) {
         return NULL;
     }
     dlerror(); // to clear any existing errors
 
-    *(void **) (&create) = dlsym(handle, "create");
+    *(void **) (&construct) =
+            dlsym(handle, "construct");
+    sizeOfAnimal = dlsym(handle, "size");
+
     if ((error = dlerror()) != NULL) {
         dlclose(handle);
         return NULL;
     }
 
-    void *result = (*create)(ctorarg);
+    void *result = malloc(sizeOfAnimal());
+    (*construct)(result, ctorarg);
     // dlclose(handle); // TODO Do i need to close the handle at some point? Closing it will remove the loaded vTables
     return result;
 }

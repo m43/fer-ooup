@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdlib.h>
 
 typedef char const *(*PTRFUN)();
 
@@ -48,3 +47,15 @@ int main(int argc, char *argv[]) {
         free(p);
     }
 }
+/**
+ * 5) "Suggest a solution that would allow library clients the flexibility
+ * in allocating memory space for a new object. Your solution must allow
+ * the creation of objects on the stack and within the separately allocated
+ * memory space, as required in the first task of the first exercise.
+ * Note: The generic factory needs to be redesigned, and libraries need
+ * to define one additional function."
+ *      The solution I would suggest is to create constructor methods in the
+ * dynamic libraries. The factories would then use these constructors to
+ * construct objects for which they have allocated memory themselves. I've
+ * updated the factory to use this notion. (Git diff to see exact changes..)
+ */

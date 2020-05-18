@@ -25,6 +25,10 @@ const char *menu() {
 
 PTRFUN parrotVTable[] = {name, greet, menu};
 
+int size() {
+    return sizeof(Parrot);
+}
+
 void construct(Parrot *p, const char *name) {
     p->vTable = parrotVTable;
     p->name = name;
