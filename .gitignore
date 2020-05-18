@@ -1,4 +1,6 @@
 .idea
+.out
+.so
 
 CMakeLists.txt.user
 CMakeCache.txt
