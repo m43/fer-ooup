@@ -57,7 +57,10 @@ void constructDog(Animal *a, char const *name) {  // ~ class constructor for cla
      */
     a->vtable = dogsVTable;
 
-    // TODO will this now point to the same location as given "name"? Could this make problems if name was on stack?
+    // This will point to the same location as given "name". This could make problems if name was on stack or
+    // somehow goes out of scope. The developer usually worries about that. TODO how about initializing C++ member
+    //                                                                           variables (string or nonstring like
+    //                                                                           a class instance)?
     a->name = name;
 }
 
@@ -135,9 +138,12 @@ void testAnimalsStack(void) {
     constructDog(&a1, "Hamlet");
     {
         char *ofelija = "Ofelija";  // This works
-        // TODO check this
         // char *ofelija = {'O', 'f', 'e', 'l', 'i', 'j', 'a', '\0'};  //This way ofelija is on stack -> 139 (signal 11: SIGSEGV)
         constructCat(&a2, ofelija);
+//        Profesor:
+//        U C-u nije rijetkost da se stringovi tako prenose pod implicitnom pretpostavkom da se radi
+//        o konstantnim stringovima koji žive jednako dugo koliko i program. Ako ta pretpostavka ne
+//        važi, onda bi vlasnik stringa trebao alocirati svoj buffer.
     }
     constructDog(&a3, "Polonije");
 
