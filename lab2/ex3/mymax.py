@@ -38,8 +38,9 @@ if __name__ == "__main__":
     To accomplish this task, pass the get dictionary method to D
     as a key. Explain how and why we can use the method as a
     free function."
-    Functions are variables in Python that can be freely passed
-    around. Python is very flexible in regards to functions, for
-    example, one can change the definition of functions in
-    runtime or even define entirely new functions in runtime.
+    Functions are objects in Python that can be freely passed
+    around. Python is very flexible in regards to functions.
+    For example, one can change the definition of functions in
+    runtime or even define entirely new functions in runtime
+    and bind them to a class.
 """

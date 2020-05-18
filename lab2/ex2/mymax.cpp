@@ -68,7 +68,8 @@ int main() {
 
 /*
 
- "Comment on the advantages and disadvantages of this implementation over the implementation from the previous task"
+    "Comment on the advantages and disadvantages of this implementation over the implementation from the previous task"
+
     In the previous task the solution was not as flexible as it is here. In this solution, mymax can accept any data
     structure for which some kind of iterator can be defined: bare arrays (though one needs to construct the iterator
     manually), std::vector, std::set etc.
