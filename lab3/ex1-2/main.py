@@ -3,11 +3,11 @@ from myfactory import *
 
 
 def printGreeting(pet):
-    print("Ljubimac pozdravlja:", pet.greet())
+    print("Ljubimac", pet.name(), "pozdravlja:", pet.greet())
 
 
 def printMenu(pet):
-    print("Ljubimac voli:", pet.menu())
+    print("Ljubimac", pet.name(), "voli:", pet.menu())
 
 
 def test():

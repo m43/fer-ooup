@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(fer_ooup C CXX)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wextra -ldl -rdynamic -Werror")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -ldl -rdynamic -Werror")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra") # -Werror
@@ -24,6 +24,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra") # -Werror
 
 ## LAB3
 ## 1.1
-# ./run.sh
+# rather run "./run.sh" or first create some [ANIMAL].so files (tiger.so, parrot.so)
 add_executable(lab3-ex01-1 lab3/ex1-1/main.c lab3/ex1-1/myfactory.c)
-
+## 1.3
+add_executable(lab3-ex01-3 lab3/ex1-3/main.cpp lab3/ex1-3/myfactory.cpp lab3/ex1-3/tiger.cpp lab3/ex1-3/parrot.cpp)
