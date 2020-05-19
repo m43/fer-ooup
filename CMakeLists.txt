@@ -27,4 +27,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra") # -Werror
 # rather run "./run.sh" or first create some [ANIMAL].so files (tiger.so, parrot.so)
 add_executable(lab3-ex01-1 lab3/ex1-1/main.c lab3/ex1-1/myfactory.c)
 ## 1.3
-add_executable(lab3-ex01-3 lab3/ex1-3/main.cpp lab3/ex1-3/myfactory.cpp lab3/ex1-3/tiger.cpp lab3/ex1-3/parrot.cpp)
+add_executable(lab3-ex01-3 lab3/ex1-3/main.cpp lab3/ex1-3/tiger.cpp lab3/ex1-3/parrot.cpp)
+## 3
+add_executable(lab3-ex03-1 lab3/ex3/ref_vs_pointer.cpp)
+add_executable(lab3-ex03-2 lab3/ex3/maarray.h lab3/ex3/smart_pointers.cpp)
+add_executable(lab3-ex03-3 lab3/ex3/smart_pointers_2.cpp)
