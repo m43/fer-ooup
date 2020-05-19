@@ -34,8 +34,8 @@ private:
     string name_;
 };
 
-static void *myCreator(const string &arg) {
+static Animal* myCreator(const string &arg) {
     return new Parrot(arg);
 }
 
-static int hreg = MyFactory::instance().registerCreator("parrot", myCreator);
+static int hreg = MyFactory<Animal>::instance().registerCreator("parrot", myCreator);

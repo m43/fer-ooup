@@ -22,8 +22,8 @@ const char *getRandomName() {
 
 int main() {
     srand(time(NULL));
-    for (const auto &c: MyFactory::instance().getCreators()) {
-        Animal *a = (Animal *) c.second(getRandomName());
+    for (const auto &c: MyFactory<Animal>::instance().getCreators()) {
+        Animal *a = c.second(getRandomName());
         cout << a->name() << " pozdravlja: " << a->greet() << endl;
         cout << a->name() << " voli: " << a->menu() << endl;
     }
