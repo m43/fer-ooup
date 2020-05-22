@@ -27,4 +27,7 @@ int main() {
         cout << a->name() << " pozdravlja: " << a->greet() << endl;
         cout << a->name() << " voli: " << a->menu() << endl;
     }
+
+    // this one does not exist (but will not throw):
+    MyFactory<Animal>::instance().getCreator("Ćuko");
 }

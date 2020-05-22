@@ -43,7 +43,7 @@ MyFactory<PRODUCT> &MyFactory<PRODUCT>::instance() {
 
 template<typename PRODUCT>
 int MyFactory<PRODUCT>::registerCreator(const string &name, MyFactory::CREATORFUN creatorFunction) {
-    creatorsMap_.insert({name, creatorFunction});
+    creatorsMap_[name] = creatorFunction;
     return creatorsMap_.size() - 1;
 }
 
@@ -54,12 +54,12 @@ const map<string, typename MyFactory<PRODUCT>::CREATORFUN> &MyFactory<PRODUCT>::
 
 template<typename PRODUCT>
 typename MyFactory<PRODUCT>::CREATORFUN MyFactory<PRODUCT>::getCreator(const string &name) {
-    for (const auto &c: creatorsMap_) {
-        if (c.first == name) {
-            return c.second;
-        }
+    auto creator = creatorsMap_.find(name);
+    if (creator == creatorsMap_.end()) {
+        return nullptr;
     }
-    return nullptr;
+
+    return creator->second;
 }
 
 #endif //FER_OOUP_MYFACTORY_H
