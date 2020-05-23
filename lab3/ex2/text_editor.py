@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
+import importlib.util
+import inspect
+import os
 from tkinter import *
-from tkinter.font import Font
 from tkinter import filedialog
+from tkinter.font import Font
 
 import flat_colors
 from UndoManager import UndoManager, UndoManagerStackObserver
 from clipboard import ClipboardStack, ClipboardObserver
+from plugin import Plugin
 from text_editor_model import *
 
 
@@ -50,10 +54,32 @@ class TextEditor(Frame, CaretObserver, TextObserver):
 
         self._clipboardStack = ClipboardStack()
 
+        self._pluginsDirectory = "./plugins/"
+        self._pluginsModuleName = "plugins"
+        self._plugins = self._load_plugins()
+
         self.init_menubar()
         self.init_toolbar()
         self.init_statusbar()
         self.init_canvas()
+
+    def _load_plugins(self):
+        plugins = []
+        for file in os.listdir(self._pluginsDirectory):
+            if file.endswith(".py"):
+                print(file)
+                # try:
+                spec = importlib.util.spec_from_file_location(
+                    self._pluginsModuleName, self._pluginsDirectory + file)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                for name, obj in inspect.getmembers(
+                        module, lambda x: inspect.isclass(x) and issubclass(x, Plugin) and not inspect.isabstract(x)):
+                    plugins.append(obj())
+                # except:
+                #     pass
+
+        return plugins
 
     def init_menubar(self):
         menubar = Menu(self.master)
@@ -108,6 +134,14 @@ class TextEditor(Frame, CaretObserver, TextObserver):
         move_menu.add_command(label="Caret to document start", command=self.caret_to_start)
         move_menu.add_command(label="Caret to document end", command=self.caret_to_end)
         menubar.add_cascade(label="Move", underline=0, menu=move_menu)
+
+        plugins_menu = Menu(menubar)
+        for plugin in self._plugins:
+            plugins_menu.add_command(
+                label=plugin.get_name(),
+                command=lambda p=plugin: p.execute(self._model, UndoManager.get_instance(), self._clipboardStack))
+
+        menubar.add_cascade(label="Plugins", underline=0, menu=plugins_menu)
 
     def init_toolbar(self):
         toolbar = Frame(self.master)
