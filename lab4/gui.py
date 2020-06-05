@@ -64,20 +64,6 @@ class Painter(Frame):
                         command=lambda: self._canvas.set_state(EraserState(self._dm, self._canvas)), state=NORMAL,
                         bg=FlatUiColors.ALIZARIN)
         delete.pack(side=LEFT, padx=2, pady=2)
-
-        # UndoManager.get_instance().attach_redo_observer(
-        #     type("UndoManagerStackObserver4", (UndoManagerStackObserver, object),
-        #          {"stack_empty": lambda _, e: redo.config(state=DISABLED if e else NORMAL)})())
-        # self._model.attach_selection_observer(
-        #     type("SelectionObserverCopyTool", (SelectionObserver, object),
-        #          {"update_selection": lambda _, e: copy.config(state=DISABLED if not e else NORMAL)})())
-        # self._model.attach_selection_observer(
-        #     type("SelectionObserverCutTool", (SelectionObserver, object),
-        #          {"update_selection": lambda _, e: cut.config(state=DISABLED if not e else NORMAL)})())
-        # self._clipboardStack.attach_clipboard_observer(
-        #     type("ClipboardObserverPasteTool", (ClipboardObserver, object),
-        #          {"update_clipboard": lambda _, e: paste.config(state=DISABLED if not e else NORMAL)})())
-
         toolbar.pack(side=TOP, fill=X)
 
     def delete_selection(self):

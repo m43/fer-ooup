@@ -65,6 +65,8 @@ class DocumentModel(ABC):
         for go in goes:
             go.remove_graphical_object_listener(self.__go_listener)
             self.__objects.remove(go)
+            if go.is_selected():
+                self.__selected_objects.remove(go)
         self.notify_document_model_listeners()
 
     def get_objects(self) -> Tuple[GraphicalObject]:

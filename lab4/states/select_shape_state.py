@@ -16,7 +16,7 @@ class SelectshapeState(State):
 
     def mouse_down(self, mouse_point: Point, shift_down: bool, ctrl_down: bool) -> None:
         if not ctrl_down:
-            for go in self._dm.get_objects():
+            for go in self._dm.get_selected_objects():
                 go.set_selected(False)
 
         self._select_object(mouse_point)
@@ -71,6 +71,7 @@ class SelectshapeState(State):
             elif key_event.keysym == "u":  # ungroup
                 if isinstance(go, CompositeShape):
                     idx = self._dm.get_objects().index(go)
+                    self._dm.remove_graphical_objects([go])
                     for child in go.get_children():
                         self._dm.insert_graphical_object(child, idx)
                         child.set_selected(True)
