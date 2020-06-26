@@ -19,8 +19,7 @@ class SvgRendererImpl(Renderer):
             f.writelines(self.lines)
 
     def draw_line(self, s: Point, e: Point):
-        line = '    <line x1="{}" y1="{}" x2="{}" y2="{}" stroke="{}" stroke-width="{}" />'.format(
-            s.x, s.y, e.x, e.y, self.outline, 4)
+        line = f'    <line x1="{s.x}" y1="{s.y}" x2="{e.x}" y2="{e.y}" stroke="{self.outline}" stroke-width="{4}" />'
         self.lines.append(line)
 
     def fill_polygon(self, points: List[Point]):
